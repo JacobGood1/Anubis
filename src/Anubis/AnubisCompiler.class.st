@@ -11,16 +11,41 @@ Class {
 		'string',
 		'whitespace',
 		'symbol',
-		'hyphen'
+		'hyphen',
+		'list',
+		'atom',
+		'atoms'
 	],
 	#category : #Anubis
 }
+
+{ #category : #'as yet unclassified' }
+AnubisCompiler class >> composeRules: anArray [
+	| firstRule |
+	firstRule := anArray first.
+	^anArray allButFirst inject: firstRule  into: [:acc :i | acc, (#space asParser plus ==> [:s| ]), i ]
+]
 
 { #category : #'as yet unclassified' }
 AnubisCompiler class >> ultimateSourceCodeAt: aString ifAbsent: aBlockClosure [ 
 	self flag: #TODO "figure out how to grab the source code of an object". 
 	"Transcript show: aString."
 	^''
+]
+
+{ #category : #parsing }
+AnubisCompiler >> atom [ 
+	^(
+	float /
+	integer /
+	symbol /
+	list 
+	)
+]
+
+{ #category : #parsing }
+AnubisCompiler >> atoms [ 
+	^atom , ((whitespace , atom) star).
 ]
 
 { #category : #parsing }
@@ -61,6 +86,11 @@ AnubisCompiler >> hyphen [
 AnubisCompiler >> integer [
 	"parses an integer with no leading zeros: 1 123 456, not: 01 05 etc."
 	^ ((digitExcludingZero , #digit asParser plus) / (#digit asParser)) .
+]
+
+{ #category : #parsing }
+AnubisCompiler >> list [
+	^ (openParen , closeParen) / (openParen , symbol , whitespace , atoms optional, closeParen). 
 ]
 
 { #category : #parsing }
