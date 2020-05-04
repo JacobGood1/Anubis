@@ -73,6 +73,7 @@ AnubisCompilerTest >> testString [
 { #category : #test }
 AnubisCompilerTest >> testSymbol [
 	self parse: 'a123' rule: #symbol.
+	self parse: '--a123---fdsf' rule: #symbol.
 ]
 
 { #category : #test }

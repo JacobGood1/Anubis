@@ -56,20 +56,20 @@ AnubisCompiler >> closeParen [
 
 { #category : #parsing }
 AnubisCompiler >> digitExcludingZero [
-	^ ('1' asParser / 
-		'2' asParser / 
-		'3' asParser /  
-	   '4' asParser / 
-		'5' asParser /
-		'6' asParser /
-		'7' asParser /
-		'8' asParser /
-		'9' asParser)
+	^ ($1 asParser / 
+		$2 asParser / 
+		$3 asParser /  
+	   $4 asParser / 
+		$5 asParser /
+		$6 asParser /
+		$7 asParser /
+		$8 asParser /
+		$9 asParser)
 ]
 
 { #category : #parsing }
 AnubisCompiler >> doubleQuote [
-	^'"' asParser.
+	^$" asParser.
 ]
 
 { #category : #parsing }
@@ -79,7 +79,7 @@ AnubisCompiler >> float [
 
 { #category : #parsing }
 AnubisCompiler >> hyphen [
-	^ '-' asParser.
+	^ $- asParser.
 ]
 
 { #category : #parsing }
@@ -90,7 +90,7 @@ AnubisCompiler >> integer [
 
 { #category : #parsing }
 AnubisCompiler >> list [
-	^ (openParen , closeParen) / (openParen , symbol , whitespace , atoms optional, closeParen). 
+	^ (openParen , whitespace flatten, closeParen) / (openParen , (symbol , whitespace, atoms optional), closeParen). 
 ]
 
 { #category : #parsing }
@@ -114,7 +114,7 @@ AnubisCompiler >> string [
 { #category : #parsing }
 AnubisCompiler >> symbol [
 	self flag: #TODO "add more variants to symbol".
-	^ #lowercase asParser, (#lowercase asParser / integer / hyphen ) star.
+	^ (#lowercase asParser / hyphen ), (#lowercase asParser / integer / hyphen ) star.
 ]
 
 { #category : #parsing }
