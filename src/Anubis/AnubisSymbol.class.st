@@ -3,14 +3,12 @@ Class {
 	#superclass : #Object,
 	#traits : 'NodeTransformer',
 	#classTraits : 'NodeTransformer classTrait',
-	#instVars : [
-		'str'
-	],
 	#category : #Anubis
 }
 
 { #category : #'as yet unclassified' }
 AnubisSymbol >> toPharo [
+	|str|
 	str := '-' split: token.
-	str allButFirst inject: str first into: [ :acc :s | acc , s capitalized  ] 
+	^str allButFirst inject: str first into: [ :acc :s | acc , s capitalized  ] 
 ]

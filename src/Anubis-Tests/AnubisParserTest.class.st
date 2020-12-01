@@ -2,23 +2,23 @@
 An AnubisCompilerTest is a test class for testing the behavior of AnubisCompiler
 "
 Class {
-	#name : #AnubisCompilerTest,
+	#name : #AnubisParserTest,
 	#superclass : #PPCompositeParserTest,
 	#category : #'Anubis-Tests'
 }
 
-{ #category : #accessing }
-AnubisCompilerTest >> parserClass [
-	^AnubisCompiler 
+{ #category : #test }
+AnubisParserTest >> parserClass [ 
+	^AnubisParser 
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testCloseParen [
+AnubisParserTest >> testCloseParen [
 	self parse: ')' rule: #closeParen.
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testDigitExcludingZero [  
+AnubisParserTest >> testDigitExcludingZero [  
 	self fail: '0' rule: #digitExcludingZero.
 	self parse: '1' rule: #digitExcludingZero.
 	self parse: '2' rule: #digitExcludingZero.
@@ -32,12 +32,12 @@ AnubisCompilerTest >> testDigitExcludingZero [
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testDoubleQuote [
+AnubisParserTest >> testDoubleQuote [
 	self parse: '"' rule: #doubleQuote.
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testFloat [
+AnubisParserTest >> testFloat [
 	self parse: '1.0' rule: #float.
 	self parse: '0.1' rule: #float.
 	self fail: '.1' rule: #float.
@@ -47,37 +47,43 @@ AnubisCompilerTest >> testFloat [
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testHyphen [
+AnubisParserTest >> testHyphen [
 	self parse: '-' rule: #hyphen. 
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testInteger [
+AnubisParserTest >> testInteger [
 	self parse: '1' rule: #integer.
 	self parse: '1000' rule: #integer.
 	self fail: '000111' rule: #integer.
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testOpenParen [
+AnubisParserTest >> testOpenParen [
 	self parse: '(' rule: #openParen.
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testString [
+AnubisParserTest >> testStart [
+
+	self parse: '()' rule: #start 
+]
+
+{ #category : #test }
+AnubisParserTest >> testString [
 	self parse: '"adsafd gsfgsr T%^&^%*&^*"' rule: #string.
 	self parse: '""' rule: #string.
 	self fail: '"' rule: #string.
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testSymbol [
+AnubisParserTest >> testSymbol [
 	self parse: 'a123' rule: #symbol.
 	self parse: '--a123---fdsf' rule: #symbol.
 ]
 
 { #category : #test }
-AnubisCompilerTest >> testWhitespace [
+AnubisParserTest >> testWhitespace [
 	self parse: '     ' rule: #whitespace. 
 	self parse: '     
 	                        ' rule: #whitespace. 

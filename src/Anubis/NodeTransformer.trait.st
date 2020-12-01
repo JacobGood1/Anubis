@@ -17,7 +17,7 @@ NodeTransformer classSide >> makeNode: value [
 
 { #category : #'as yet unclassified' }
 NodeTransformer >> toAnubis [
-	Transcript show: token
+	self explicitRequirement. 
 ]
 
 { #category : #'as yet unclassified' }

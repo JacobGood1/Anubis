@@ -1,5 +1,5 @@
 Class {
-	#name : #AnubisCompiler,
+	#name : #AnubisParser,
 	#superclass : #PPCompositeParser,
 	#instVars : [
 		'openParen',
@@ -20,21 +20,21 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-AnubisCompiler class >> composeRules: anArray [
+AnubisParser class >> composeRules: anArray [
 	| firstRule |
 	firstRule := anArray first.
 	^anArray allButFirst inject: firstRule  into: [:acc :i | acc, (#space asParser plus ==> [:s| ]), i ]
 ]
 
 { #category : #'as yet unclassified' }
-AnubisCompiler class >> ultimateSourceCodeAt: aString ifAbsent: aBlockClosure [ 
+AnubisParser class >> ultimateSourceCodeAt: aString ifAbsent: aBlockClosure [ 
 	self flag: #TODO "figure out how to grab the source code of an object". 
 	"Transcript show: aString."
 	^''
 ]
 
 { #category : #parsing }
-AnubisCompiler >> atom [ 
+AnubisParser >> atom [ 
 	^(
 	float /
 	integer /
@@ -44,18 +44,18 @@ AnubisCompiler >> atom [
 ]
 
 { #category : #parsing }
-AnubisCompiler >> atoms [ 
+AnubisParser >> atoms [ 
 	^atom , ((whitespace , atom) star).
 ]
 
 { #category : #parsing }
-AnubisCompiler >> closeParen [
+AnubisParser >> closeParen [
 	"parses a closed parenthesis"
 	^ ')' asParser.
 ]
 
 { #category : #parsing }
-AnubisCompiler >> digitExcludingZero [
+AnubisParser >> digitExcludingZero [
 	^ ($1 asParser / 
 		$2 asParser / 
 		$3 asParser /  
@@ -68,56 +68,56 @@ AnubisCompiler >> digitExcludingZero [
 ]
 
 { #category : #parsing }
-AnubisCompiler >> doubleQuote [
+AnubisParser >> doubleQuote [
 	^$" asParser.
 ]
 
 { #category : #parsing }
-AnubisCompiler >> float [
+AnubisParser >> float [
 	^ (integer , '.' asParser , integer) 
 ]
 
 { #category : #parsing }
-AnubisCompiler >> hyphen [
+AnubisParser >> hyphen [
 	^ $- asParser.
 ]
 
 { #category : #parsing }
-AnubisCompiler >> integer [
+AnubisParser >> integer [
 	"parses an integer with no leading zeros: 1 123 456, not: 01 05 etc."
 	^ ((digitExcludingZero , #digit asParser plus) / (#digit asParser)) .
 ]
 
 { #category : #parsing }
-AnubisCompiler >> list [
+AnubisParser >> list [
 	^ (openParen , whitespace flatten, closeParen) / (openParen , (symbol , whitespace, atoms optional), closeParen). 
 ]
 
 { #category : #parsing }
-AnubisCompiler >> openParen [
+AnubisParser >> openParen [
 	"parses an open parenthesis"
 	^ '(' asParser.
 ]
 
 { #category : #accessing }
-AnubisCompiler >> start [
+AnubisParser >> start [
 	"Answer the production to start this parser with."
 	
 	^ openParen , closeParen.
 ]
 
 { #category : #parsing }
-AnubisCompiler >> string [
+AnubisParser >> string [
 	^ doubleQuote , (#any asParser starLazy: doubleQuote) , doubleQuote.  
 ]
 
 { #category : #parsing }
-AnubisCompiler >> symbol [
+AnubisParser >> symbol [
 	self flag: #TODO "add more variants to symbol".
 	^ (#lowercase asParser / hyphen ), (#lowercase asParser / integer / hyphen ) star.
 ]
 
 { #category : #parsing }
-AnubisCompiler >> whitespace [
+AnubisParser >> whitespace [
 	^ #space asParser plus. 
 ]
