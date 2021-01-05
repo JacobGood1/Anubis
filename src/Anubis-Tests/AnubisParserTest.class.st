@@ -59,6 +59,11 @@ AnubisParserTest >> testInteger [
 ]
 
 { #category : #test }
+AnubisParserTest >> testList [
+	self parse: '(+ 1 1 (- 0 99))' rule: #list
+]
+
+{ #category : #test }
 AnubisParserTest >> testOpenParen [
 	self parse: '(' rule: #openParen.
 ]

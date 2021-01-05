@@ -14,7 +14,8 @@ Class {
 		'hyphen',
 		'list',
 		'atom',
-		'atoms'
+		'atoms',
+		'form'
 	],
 	#category : #Anubis
 }
@@ -35,17 +36,19 @@ AnubisParser class >> ultimateSourceCodeAt: aString ifAbsent: aBlockClosure [
 
 { #category : #parsing }
 AnubisParser >> atom [ 
-	^(
+	^
 	float /
 	integer /
 	symbol /
-	list 
-	)
+	string /
+	list
+	
 ]
 
 { #category : #parsing }
 AnubisParser >> atoms [ 
-	^atom , ((whitespace , atom) star).
+	^
+	(atom , whitespace optional ==> [:a | a at: 1]) star 
 ]
 
 { #category : #parsing }
@@ -74,7 +77,13 @@ AnubisParser >> doubleQuote [
 
 { #category : #parsing }
 AnubisParser >> float [
-	^ (integer , '.' asParser , integer) 
+	^ (integer , '.' asParser , integer) flatten
+]
+
+{ #category : #parsing }
+AnubisParser >> form [
+	list star.
+	 
 ]
 
 { #category : #parsing }
@@ -85,12 +94,20 @@ AnubisParser >> hyphen [
 { #category : #parsing }
 AnubisParser >> integer [
 	"parses an integer with no leading zeros: 1 123 456, not: 01 05 etc."
-	^ ((digitExcludingZero , #digit asParser plus) / (#digit asParser)) .
+	^ ((digitExcludingZero , #digit asParser plus) / (#digit asParser)) flatten .
 ]
 
 { #category : #parsing }
 AnubisParser >> list [
-	^ (openParen , whitespace flatten, closeParen) / (openParen , (symbol , whitespace, atoms optional), closeParen). 
+	^ (openParen, 
+	   ((
+	     whitespace optional, 
+	     atoms optional, 
+	     whitespace optional
+	   ) ==> [:nodes | nodes second]), 
+	  closeParen)
+	==> [:nodes |nodes second]
+	 
 ]
 
 { #category : #parsing }
@@ -108,16 +125,21 @@ AnubisParser >> start [
 
 { #category : #parsing }
 AnubisParser >> string [
-	^ doubleQuote , (#any asParser starLazy: doubleQuote) , doubleQuote.  
+	^ (doubleQuote , (#any asParser starLazy: doubleQuote) , doubleQuote) flatten.  
 ]
 
 { #category : #parsing }
 AnubisParser >> symbol [
 	self flag: #TODO "add more variants to symbol".
-	^ (#lowercase asParser / hyphen ), (#lowercase asParser / integer / hyphen ) star.
+	^
+	"change this later to say allowable front character! VVVV"
+	('+-|!@#$%^*' asCharacterSet inject: $& asParser into: [:a :b | a / b asParser]) / 
+	(#lowercase asParser / hyphen ) , 
+	((#lowercase asParser / integer / hyphen) star) 
+	flatten.
 ]
 
 { #category : #parsing }
 AnubisParser >> whitespace [
-	^ #space asParser plus. 
+	^ #space asParser plus flatten. 
 ]
