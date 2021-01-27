@@ -14,6 +14,8 @@ AnubisReaderTest >> parserClass [
 
 { #category : #test }
 AnubisReaderTest >> testSymbol [
-
-	self parse: 'hello' rule: #symbol 
+	| anubsym |
+	anubsym := (self parse: 'hello' rule: #symbol).
+	self assert: anubsym class equals: AnubisSymbol.
+	self assert: anubsym token equals: 'hello'  
 ]
