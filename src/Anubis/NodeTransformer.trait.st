@@ -17,12 +17,12 @@ NodeTransformer classSide >> makeNode: value [
 
 { #category : #'as yet unclassified' }
 NodeTransformer >> toAnubis [
-	self explicitRequirement. 
+	^ token. 
 ]
 
 { #category : #'as yet unclassified' }
 NodeTransformer >> toPharo [
-	self explicitRequirement. 
+	^ token. 
 ]
 
 { #category : #accessing }

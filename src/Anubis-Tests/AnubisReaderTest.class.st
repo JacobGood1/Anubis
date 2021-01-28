@@ -13,6 +13,15 @@ AnubisReaderTest >> parserClass [
 ]
 
 { #category : #test }
+AnubisReaderTest >> testFloat [
+	self parse: '1.2' rule: #float.
+	self parse: '45615611.21251561' rule: #float.
+	self fail: '1' rule: #float.
+	self fail: '1.' rule: #float.
+	self fail: '.1' rule: #float.
+]
+
+{ #category : #test }
 AnubisReaderTest >> testSymbol [
 	| anubsym |
 	anubsym := (self parse: 'hello' rule: #symbol).

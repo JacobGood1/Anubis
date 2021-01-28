@@ -69,6 +69,11 @@ AnubisParserTest >> testOpenParen [
 ]
 
 { #category : #test }
+AnubisParserTest >> testRatio [
+	self parse: '1/2' rule: #ratio.
+]
+
+{ #category : #test }
 AnubisParserTest >> testStart [
 
 	self parse: '()' rule: #start 

@@ -15,7 +15,9 @@ Class {
 		'list',
 		'atom',
 		'atoms',
-		'form'
+		'form',
+		'ratio',
+		'allowableSymbolCharacter'
 	],
 	#category : #Anubis
 }
@@ -35,13 +37,23 @@ AnubisParser class >> ultimateSourceCodeAt: aString ifAbsent: aBlockClosure [
 ]
 
 { #category : #parsing }
+AnubisParser >> allowableSymbolCharacter [
+	^
+	('+-|!@#$%^*.<>_=' asCharacterSet inject: $& asParser into: [:a :b | a / b asParser]) / 
+	#lowercase asParser / 
+	#uppercase asParser /
+	integer. 
+]
+
+{ #category : #parsing }
 AnubisParser >> atom [ 
 	^
+	ratio /
 	float /
 	integer /
 	symbol /
 	string /
-	list
+	list 
 	
 ]
 
@@ -116,11 +128,19 @@ AnubisParser >> openParen [
 	^ '(' asParser.
 ]
 
+{ #category : #parsing }
+AnubisParser >> ratio [
+	^ integer , '/' asParser , integer.
+	
+]
+
 { #category : #accessing }
 AnubisParser >> start [
 	"Answer the production to start this parser with."
 	
-	^ openParen , closeParen.
+	^ whitespace optional ==> [:ws | ws ifNil: [''] ifNotNil: [ws]], 
+	  (atom, whitespace optional ==> [:s | s ifNil: [AnubisEmptySpace makeNode: ''] ifNotNil: [s]])
+	  star.
 ]
 
 { #category : #parsing }
@@ -130,16 +150,14 @@ AnubisParser >> string [
 
 { #category : #parsing }
 AnubisParser >> symbol [
-	self flag: #TODO "add more variants to symbol".
 	^
 	"change this later to say allowable front character! VVVV"
-	('+-|!@#$%^*' asCharacterSet inject: $& asParser into: [:a :b | a / b asParser]) / 
-	(#lowercase asParser / hyphen ) , 
-	((#lowercase asParser / integer / hyphen) star) 
+	allowableSymbolCharacter , 
+	(allowableSymbolCharacter star) 
 	flatten.
 ]
 
 { #category : #parsing }
 AnubisParser >> whitespace [
-	^ #space asParser plus flatten. 
+	^ #space asParser plus. 
 ]
