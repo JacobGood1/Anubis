@@ -20,13 +20,27 @@ AnubisReader >> float [
 ]
 
 { #category : #accessing }
+AnubisReader >> integer [ 
+	 ^super integer ==> [ :i | AnubisInteger makeNode: i ]
+]
+
+{ #category : #accessing }
 AnubisReader >> list [
+	| tokenCheck ret|
 	^super list ==> [:lst | 
-		AnubisList makeNode: (lst inject: OrderedCollection new 
-		                          into: [:acc :n | 
+		tokenCheck := lst first token.
+		ret := nil.
+		tokenCheck = 'if' ifTrue: [ ret := AnubisSpecialFormIf makeNode: lst ]. 
+		tokenCheck = 'set' ifTrue: [ ret := AnubisSpecialFormSet makeNode: lst ].
+		ret ifNil: [  
+		  ret := AnubisList makeNode: (lst inject: OrderedCollection new 
+		  	                          into: [:acc :n | 
 				acc add: n.
 				acc
-			])] 
+			])	
+		].
+		ret 
+	]
 ]
 
 { #category : #accessing }

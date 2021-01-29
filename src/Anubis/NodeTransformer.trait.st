@@ -1,7 +1,8 @@
 Trait {
 	#name : #NodeTransformer,
 	#instVars : [
-		'token'
+		'token',
+		'specialForm'
 	],
 	#category : #Anubis
 }
@@ -13,6 +14,21 @@ NodeTransformer classSide >> makeNode: value [
 	temp token: value.
 	^temp.  
 	
+]
+
+{ #category : #testing }
+NodeTransformer >> isSpecialForm [
+	^specialForm. 
+]
+
+{ #category : #accessing }
+NodeTransformer >> specialForm [
+	^specialForm.
+]
+
+{ #category : #accessing }
+NodeTransformer >> specialForm: aBoolean [
+	specialForm := aBoolean. 
 ]
 
 { #category : #'as yet unclassified' }
