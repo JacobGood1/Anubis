@@ -14,7 +14,7 @@ AnubisSpecialFormIf class >> makeNode: aList [
 
 { #category : #'as yet unclassified' }
 AnubisSpecialFormIf >> expansionFormat: args [
-	| counter finalStrSource cond ret|
+	| counter finalStrSource cond ret |
 	self flag: #TODO "generating of var that deals with conditions needs to use a proper gensym".
 	counter := 1.
 	cond := '__AnubisSpecialFormIf__var__cond'.
@@ -24,17 +24,14 @@ AnubisSpecialFormIf >> expansionFormat: args [
 		 ret := (args at: counter + 1) toPharo.
 		 finalStrSource :=  
 		   finalStrSource ,
-		   cond, ':=', (args at: counter) toPharo, '.', Character cr asString,
-		   cond, 
-		   ' ~= false ifTrue: [ ', 
-			 cond, 
-			 ' ~= nil ifTrue: [^',
-			 ret,
-			 ']].',
-	      Character cr asString. 
+		   '{1} := {2}. {3}({1} ~= false ifTrue: [{1} ~= nil ifTrue: [{4}]]) ifNil: [{3}' 
+			 format: {cond. 
+			          (args at: counter) toPharo. 
+			          Character cr asString. 
+			          ret}.
 		counter := counter + 2.
 	].
-  ^finalStrSource , '] value.' 
+  ^'{1}]{2} value.' format: {finalStrSource . (']' repeat: args size / 2) } 
 	 
 ]
 
