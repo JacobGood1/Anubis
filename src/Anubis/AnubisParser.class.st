@@ -6,6 +6,7 @@ Class {
 		'closeParen',
 		'integer',
 		'float',
+		'ratio',
 		'digitExcludingZero',
 		'doubleQuote',
 		'string',
@@ -15,7 +16,8 @@ Class {
 		'list',
 		'atom',
 		'atoms',
-		'form'
+		'boolean',
+		'quotedList'
 	],
 	#category : #Anubis
 }
@@ -37,11 +39,14 @@ AnubisParser class >> ultimateSourceCodeAt: aString ifAbsent: aBlockClosure [
 { #category : #parsing }
 AnubisParser >> atom [ 
 	^
+	(ratio /
 	float /
+	boolean /
 	integer /
 	symbol /
 	string /
-	list
+	list /
+	quotedList)
 	
 ]
 
@@ -49,6 +54,12 @@ AnubisParser >> atom [
 AnubisParser >> atoms [ 
 	^
 	(atom , whitespace optional ==> [:a | a at: 1]) star 
+]
+
+{ #category : #parsing }
+AnubisParser >> boolean [
+	^('true' asParser / 'false' asParser)
+	
 ]
 
 { #category : #parsing }
@@ -81,12 +92,6 @@ AnubisParser >> float [
 ]
 
 { #category : #parsing }
-AnubisParser >> form [
-	list star.
-	 
-]
-
-{ #category : #parsing }
 AnubisParser >> hyphen [
 	^ $- asParser.
 ]
@@ -116,11 +121,23 @@ AnubisParser >> openParen [
 	^ '(' asParser.
 ]
 
+{ #category : #parsing }
+AnubisParser >> quotedList [
+	^('''' asParser , list)
+	
+]
+
+{ #category : #parsing }
+AnubisParser >> ratio [ 
+	^(integer, $/ asParser, integer)
+	
+]
+
 { #category : #accessing }
 AnubisParser >> start [
 	"Answer the production to start this parser with."
 	
-	^ openParen , closeParen.
+	^ atom / list.
 ]
 
 { #category : #parsing }
