@@ -28,10 +28,7 @@ AnubisParserTest >> testAtom [
 
 { #category : #test }
 AnubisParserTest >> testAtoms [
-	self parse: '1 1/2 3.5 () true false (1 2 3 ''(4 5 6))' rule: #atom.
-
-	self assert: (self parse: '1' rule: #atoms) first equals: (self parse: '1' rule: #atom).
-	self assert: (self parse: '1.0' rule: #atoms) first equals: (self parse: '1.0' rule: #atom).
+	self parse: '1 1/2 3.5 () true false (1 2 3 ''(4 5 6))' rule: #atoms. 
 ]
 
 { #category : #test }
@@ -104,6 +101,11 @@ AnubisParserTest >> testQuotedList [
 { #category : #test }
 AnubisParserTest >> testRatio [
 	self parse: '1/2' rule: #ratio
+]
+
+{ #category : #test }
+AnubisParserTest >> testSingleQuote [
+	self parse: '''' rule: #singleQuote
 ]
 
 { #category : #test }

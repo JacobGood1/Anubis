@@ -17,7 +17,8 @@ Class {
 		'atom',
 		'atoms',
 		'boolean',
-		'quotedList'
+		'quotedList',
+		'singleQuote'
 	],
 	#category : #Anubis
 }
@@ -45,8 +46,8 @@ AnubisParser >> atom [
 	integer /
 	symbol /
 	string /
-	list /
-	quotedList)
+	quotedList / 
+	list)
 	
 ]
 
@@ -123,13 +124,19 @@ AnubisParser >> openParen [
 
 { #category : #parsing }
 AnubisParser >> quotedList [
-	^('''' asParser , list)
+	^(singleQuote , list)
 	
 ]
 
 { #category : #parsing }
 AnubisParser >> ratio [ 
 	^(integer, $/ asParser, integer)
+	
+]
+
+{ #category : #parsing }
+AnubisParser >> singleQuote [
+	^($' asParser).
 	
 ]
 
