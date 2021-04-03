@@ -13,6 +13,14 @@ AnubisReaderTest >> parserClass [
 ]
 
 { #category : #test }
+AnubisReaderTest >> testFloat [
+	| anubsym |
+	anubsym := (self parse: '3.14' rule: #float).
+	self assert: anubsym class equals: AnubisFloat.
+	self assert: anubsym token equals: '3.14'  
+]
+
+{ #category : #test }
 AnubisReaderTest >> testInteger [
 	| anubsym |
 	anubsym := (self parse: '1' rule: #integer).

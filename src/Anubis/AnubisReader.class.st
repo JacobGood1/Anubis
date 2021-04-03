@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+AnubisReader >> float [
+	^super float flatten ==> [:s | AnubisFloat makeNode: s ]
+]
+
+{ #category : #accessing }
 AnubisReader >> integer [
 	^super integer flatten ==> [:s | AnubisInteger makeNode: s ]
 ]
