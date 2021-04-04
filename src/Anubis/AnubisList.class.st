@@ -2,7 +2,9 @@ Class {
 	#name : #AnubisList,
 	#superclass : #AnubisDataTypes,
 	#instVars : [
-		'data'
+		'data',
+		'isSpecialForm',
+		'specialForms'
 	],
 	#category : #Anubis
 }
@@ -13,10 +15,10 @@ AnubisList class >> makeNode: values [
 	anubisList := self new.
 	anubisList data: OrderedCollection new.
 	values collect: [:d | d ] into: anubisList data.
+	(anubisList specialForms includes: values first token asSymbol) ifTrue: [ anubisList isSpecialForm: true ].
 	anubisList token: (
 		(values inject: '(' 
-		        into: [ :a :v | a, (v class = Array ifTrue: [ v first asString ] 
-			                                        ifFalse: [v token ])]) , ')').
+		        into: [ :a :v | a, v token]) , ')').
 	^anubisList. 
 ]
 
@@ -29,4 +31,27 @@ AnubisList >> data [
 { #category : #accessing }
 AnubisList >> data: aCollection [ 
 	data := aCollection
+]
+
+{ #category : #accessing }
+AnubisList >> initialize [ 
+	specialForms := Set new.
+	specialForms add: #if.
+	isSpecialForm := false.
+	
+]
+
+{ #category : #accessing }
+AnubisList >> isSpecialForm [
+	^ isSpecialForm
+]
+
+{ #category : #accessing }
+AnubisList >> isSpecialForm: aBoolean [ 
+	isSpecialForm := aBoolean
+]
+
+{ #category : #accessing }
+AnubisList >> specialForms [
+	^ specialForms
 ]
