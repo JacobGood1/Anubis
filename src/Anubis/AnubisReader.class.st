@@ -38,3 +38,8 @@ AnubisReader >> string [
 AnubisReader >> symbol [
 	^super symbol flatten ==> [:s | AnubisSymbol makeNode: s ]
 ]
+
+{ #category : #accessing }
+AnubisReader >> whitespace [
+	^super whitespace ==> [:s | AnubisWhitespace makeNode: (s inject: '' into: [:a :n | a , n asString]) ]
+]

@@ -15,7 +15,6 @@ Class {
 		'hyphen',
 		'list',
 		'atom',
-		'atoms',
 		'boolean',
 		'quotedList',
 		'singleQuote'
@@ -100,11 +99,7 @@ AnubisParser >> integer [
 { #category : #parsing }
 AnubisParser >> list [
 	^ (openParen, 
-	   ((
-	     whitespace optional, 
-	     (atom / whitespace) star, 
-	     whitespace optional
-	   ) ==> [:nodes |nodes second]), 
+	    (atom / whitespace) star, 
 	  closeParen)
 	==> [:nodes |nodes second]
 	 
