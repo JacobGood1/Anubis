@@ -1,5 +1,5 @@
 Class {
-	#name : #AnubisSymbol2,
+	#name : #AnubisString,
 	#superclass : #AnubisDataTypes,
 	#category : #Anubis
 }

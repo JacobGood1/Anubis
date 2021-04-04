@@ -37,6 +37,14 @@ AnubisReaderTest >> testRatio [
 ]
 
 { #category : #test }
+AnubisReaderTest >> testString [
+	| anubisDataType |
+	anubisDataType := (self parse: '"hi"' rule: #string).
+	self assert: anubisDataType class equals: AnubisString.
+	self assert: anubisDataType token equals: '"hi"'  
+]
+
+{ #category : #test }
 AnubisReaderTest >> testSymbol [
 	| anubsym |
 	anubsym := (self parse: 'hello' rule: #symbol).

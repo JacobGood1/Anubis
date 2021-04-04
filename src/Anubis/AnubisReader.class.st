@@ -15,6 +15,11 @@ AnubisReader >> integer [
 ]
 
 { #category : #accessing }
+AnubisReader >> list [
+	^super list ==> [ :nodes | AnubisList makeNode: nodes ]
+]
+
+{ #category : #accessing }
 AnubisReader >> ratio [
 	^super ratio flatten ==> [:s | AnubisRatio makeNode: s ]
 ]
@@ -22,6 +27,11 @@ AnubisReader >> ratio [
 { #category : #accessing }
 AnubisReader >> start [
 	^symbol
+]
+
+{ #category : #accessing }
+AnubisReader >> string [
+	^super string flatten ==> [:s | AnubisString makeNode: s ]
 ]
 
 { #category : #accessing }

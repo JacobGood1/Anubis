@@ -52,12 +52,6 @@ AnubisParser >> atom [
 ]
 
 { #category : #parsing }
-AnubisParser >> atoms [ 
-	^
-	(atom , whitespace optional ==> [:a | a at: 1]) star 
-]
-
-{ #category : #parsing }
 AnubisParser >> boolean [
 	^('true' asParser / 'false' asParser)
 	
@@ -108,9 +102,9 @@ AnubisParser >> list [
 	^ (openParen, 
 	   ((
 	     whitespace optional, 
-	     atoms optional, 
+	     (atom / whitespace) star, 
 	     whitespace optional
-	   ) ==> [:nodes | nodes second]), 
+	   ) ==> [:nodes |nodes second]), 
 	  closeParen)
 	==> [:nodes |nodes second]
 	 
@@ -165,5 +159,5 @@ AnubisParser >> symbol [
 
 { #category : #parsing }
 AnubisParser >> whitespace [
-	^ #space asParser plus flatten. 
+	^ #space asParser plus. 
 ]

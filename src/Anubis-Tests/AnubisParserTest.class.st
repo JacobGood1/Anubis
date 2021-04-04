@@ -27,11 +27,6 @@ AnubisParserTest >> testAtom [
 ]
 
 { #category : #test }
-AnubisParserTest >> testAtoms [
-	self parse: '1 1/2 3.5 () true false (1 2 3 ''(4 5 6))' rule: #atoms. 
-]
-
-{ #category : #test }
 AnubisParserTest >> testBoolean [
 	self parse: 'false' rule: #boolean.
 	self parse: 'true' rule: #boolean.
