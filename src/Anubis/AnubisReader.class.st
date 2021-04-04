@@ -26,7 +26,7 @@ AnubisReader >> ratio [
 
 { #category : #accessing }
 AnubisReader >> start [
-	^symbol
+	^(whitespace / atom / list) star
 ]
 
 { #category : #accessing }
