@@ -6,7 +6,7 @@ Class {
 
 { #category : #compiling }
 AnubisCompiler class >> compile: aString [
-	^(AnubisReader parse: aString) first toPharo . 
+	^(AnubisReader parse: aString onError: [ :msg :pos | self error: msg ]) first toPharo . 
 ]
 
 { #category : #compiling }

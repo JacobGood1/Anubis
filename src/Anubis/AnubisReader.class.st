@@ -20,8 +20,23 @@ AnubisReader >> list [
 ]
 
 { #category : #accessing }
+AnubisReader >> path [
+	^super path flatten ==> [:s | AnubisPath makeNode: s ]
+]
+
+{ #category : #accessing }
 AnubisReader >> ratio [
 	^super ratio flatten ==> [:s | AnubisRatio makeNode: s ]
+]
+
+{ #category : #accessing }
+AnubisReader >> setWord [
+	^super setWord flatten ==> [:s | AnubisSetWord makeNode: s ]
+]
+
+{ #category : #accessing }
+AnubisReader >> setWordPath [
+	^super setWordPath flatten ==> [:s | AnubisSetWordPath makeNode: s ]
 ]
 
 { #category : #accessing }

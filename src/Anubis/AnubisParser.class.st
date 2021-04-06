@@ -17,7 +17,12 @@ Class {
 		'atom',
 		'boolean',
 		'quotedList',
-		'singleQuote'
+		'singleQuote',
+		'path',
+		'forwardSlash',
+		'colon',
+		'setWord',
+		'setWordPath'
 	],
 	#category : #Anubis
 }
@@ -43,6 +48,8 @@ AnubisParser >> atom [
 	float /
 	boolean /
 	integer /
+	setWord /
+	path /
 	symbol /
 	string /
 	quotedList / 
@@ -60,6 +67,13 @@ AnubisParser >> boolean [
 AnubisParser >> closeParen [
 	"parses a closed parenthesis"
 	^ ')' asParser.
+]
+
+{ #category : #parsing }
+AnubisParser >> colon [
+	^ $: asParser
+	
+	
 ]
 
 { #category : #parsing }
@@ -86,6 +100,12 @@ AnubisParser >> float [
 ]
 
 { #category : #parsing }
+AnubisParser >> forwardSlash [
+	^($/ asParser). 
+	
+]
+
+{ #category : #parsing }
 AnubisParser >> hyphen [
 	^ $- asParser.
 ]
@@ -98,10 +118,10 @@ AnubisParser >> integer [
 
 { #category : #parsing }
 AnubisParser >> list [
-	^ (openParen, 
-	    (atom / whitespace) star, 
+	^ ((openParen, 
+	    (setWordPath / atom / whitespace) star, 
 	  closeParen)
-	==> [:nodes |nodes second]
+	==> [:nodes |nodes second]).
 	 
 ]
 
@@ -109,6 +129,12 @@ AnubisParser >> list [
 AnubisParser >> openParen [
 	"parses an open parenthesis"
 	^ '(' asParser.
+]
+
+{ #category : #parsing }
+AnubisParser >> path [
+	^(symbol , forwardSlash , symbol , ((forwardSlash , symbol) star)) 
+	
 ]
 
 { #category : #parsing }
@@ -120,6 +146,20 @@ AnubisParser >> quotedList [
 { #category : #parsing }
 AnubisParser >> ratio [ 
 	^(integer, $/ asParser, integer)
+	
+]
+
+{ #category : #parsing }
+AnubisParser >> setWord [
+	^ (symbol , colon).
+	
+	
+]
+
+{ #category : #parsing }
+AnubisParser >> setWordPath [
+	^ (symbol , forwardSlash , setWord).
+	
 	
 ]
 

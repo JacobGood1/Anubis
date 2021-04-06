@@ -26,6 +26,18 @@ AnubisSpecialFormDispatcher class >> if: anubisListRef [
 				format: {(ifDroppedWhitespaceCleared at: i) toPharo. 
 				         (ifDroppedWhitespaceCleared at: i + 1) toPharo.
 				         Character cr}).
-		]) , 'nil' , closingBrackets , '.')
+		]) , 'nil' , closingBrackets)
+	
+]
+
+{ #category : #accessing }
+AnubisSpecialFormDispatcher class >> pathFunCall: anubisListRef [
+	| pathDroppedWhitespaceCleared |
+	pathDroppedWhitespaceCleared := anubisListRef data allButFirst reject: [:e | e class = AnubisWhitespace]. 
+	^(anubisListRef data first toPharo,
+	' ',
+	'valueWithArguments: #{', 
+	(pathDroppedWhitespaceCleared inject: '' into: [:a :n | a, n toPharo , '. '])  
+	,'}').
 	
 ]

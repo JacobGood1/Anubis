@@ -5,3 +5,8 @@ Class {
 	#classTraits : 'NodeTransformer classTrait',
 	#category : #Anubis
 }
+
+{ #category : #'as yet unclassified' }
+AnubisSymbol >> toPharo [ 
+	^token
+]
