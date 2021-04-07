@@ -70,6 +70,7 @@ AnubisList >> initialize [
 	specialForms := Set new.
 	specialForms add: #if.
 	specialForms add: #path.
+	specialForms add: #funcall.
 	isSpecialForm := false.
 	
 ]

@@ -36,7 +36,7 @@ AnubisReader >> setWord [
 
 { #category : #accessing }
 AnubisReader >> setWordPath [
-	^super setWordPath flatten ==> [:s | AnubisSetWordPath makeNode: s ]
+	^super setWordPath flatten ==> [:s | AnubisPath makeNode: s ]
 ]
 
 { #category : #accessing }

@@ -11,6 +11,19 @@ Class {
 }
 
 { #category : #accessing }
+AnubisSpecialFormDispatcher class >> funcall: anubisListRef [
+  "possibly remove this"
+	| funcallDroppedWhitespaceCleared |
+	funcallDroppedWhitespaceCleared := anubisListRef data allButFirst allButFirst allButFirst  reject: [:e | e class = AnubisWhitespace]. 
+	^(anubisListRef data third toPharo,
+	' ',
+	'valueWithArguments: #{', 
+	(funcallDroppedWhitespaceCleared inject: '' into: [:a :n | a, n toPharo , '. '])  
+	,'}').
+	
+]
+
+{ #category : #accessing }
 AnubisSpecialFormDispatcher class >> if: anubisListRef [
 	| ifDroppedWhitespaceCleared closingBrackets |
 	ifDroppedWhitespaceCleared := anubisListRef data allButFirst reject: [:e | e class = AnubisWhitespace]. 
@@ -34,10 +47,28 @@ AnubisSpecialFormDispatcher class >> if: anubisListRef [
 AnubisSpecialFormDispatcher class >> pathFunCall: anubisListRef [
 	| pathDroppedWhitespaceCleared |
 	pathDroppedWhitespaceCleared := anubisListRef data allButFirst reject: [:e | e class = AnubisWhitespace]. 
-	^(anubisListRef data first toPharo,
-	' ',
-	'valueWithArguments: #{', 
-	(pathDroppedWhitespaceCleared inject: '' into: [:a :n | a, n toPharo , '. '])  
-	,'}').
+	^(self weaveArgsWithData: anubisListRef).
+	
+]
+
+{ #category : #accessing }
+AnubisSpecialFormDispatcher class >> removeWhiteSpace: anubisListRef [
+	^anubisListRef data reject: [:e | e class = AnubisWhitespace]
+]
+
+{ #category : #accessing }
+AnubisSpecialFormDispatcher class >> weaveArgsWithData: anubisList [
+	| counter whiteSpaceRemoved |
+	counter := 0.
+	whiteSpaceRemoved := self removeWhiteSpace: anubisList. 
+   ^
+   (whiteSpaceRemoved first toPharo,
+   ': nil ',
+   (whiteSpaceRemoved allButFirst  
+                       inject: '' 
+                       into: [ 
+		:a :t | 
+		a , ' arg{1}: {2} ' format: {counter:= counter + 1. t toPharo} 
+	])) 
 	
 ]
