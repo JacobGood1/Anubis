@@ -36,6 +36,12 @@ AnubisParserTest >> testBoolean [
 ]
 
 { #category : #test }
+AnubisParserTest >> testClazz [
+	self parse: '!hi' rule: #clazz.
+	self parse: '!hi-there-mang' rule: #clazz.
+]
+
+{ #category : #test }
 AnubisParserTest >> testCloseParen [
 	self parse: ')' rule: #closeParen.
 ]

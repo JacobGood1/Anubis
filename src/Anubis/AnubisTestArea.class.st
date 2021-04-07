@@ -6,3 +6,8 @@ Class {
 	#superclass : #Object,
 	#category : #Anubis
 }
+
+{ #category : #'as yet unclassified' }
+AnubisTestArea >> whatIsThis [
+
+]

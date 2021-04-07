@@ -22,7 +22,8 @@ Class {
 		'forwardSlash',
 		'colon',
 		'setWord',
-		'setWordPath'
+		'setWordPath',
+		'clazz'
 	],
 	#category : #Anubis
 }
@@ -60,6 +61,12 @@ AnubisParser >> atom [
 { #category : #parsing }
 AnubisParser >> boolean [
 	^('true' asParser / 'false' asParser)
+	
+]
+
+{ #category : #parsing }
+AnubisParser >> clazz [
+	^ ($! asParser , symbol) 
 	
 ]
 
