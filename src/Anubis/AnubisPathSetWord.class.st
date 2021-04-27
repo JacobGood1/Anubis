@@ -1,5 +1,5 @@
 Class {
 	#name : #AnubisPathSetWord,
-	#superclass : #AnubisDataTypes,
+	#superclass : #AnubisPath,
 	#category : #Anubis
 }

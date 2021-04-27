@@ -2,42 +2,36 @@ Class {
 	#name : #AnubisPath,
 	#superclass : #AnubisDataTypes,
 	#instVars : [
-		'type'
+		'data'
 	],
 	#category : #Anubis
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 AnubisPath class >> makeNode: value [
-	| type |
-	type := self new.
-	value first = $/ ifTrue: [ 
-		value last = $: 
-			ifTrue: [ type := AnubisImplicitPathSetWord new. ] 
-			ifFalse: [  ]
-	].
-	^(self new token: value ; type: (type token: value))
+	| temp |
+	"type := self new."
+	temp := value last = $:
+		        ifTrue: [ AnubisPathSetWord new ]
+		        ifFalse: [ self new ].
+	temp token: value.
+	temp data:
+		((value splitOn: '/') collect: [ :s | (AnubisReader parse: s) first ]).
+	^ temp
+]
+
+{ #category : #accessing }
+AnubisPath >> data [
+	^data
+]
+
+{ #category : #accessing }
+AnubisPath >> data: anOrderedCollection [
+	data := anOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
 AnubisPath >> toPharo [
-	| words allButLast |
-	type class = self class ifTrue: [
-		words := (token splitOn: '/'). 
-   		allButLast := words allButLast inject: '' into: [:p :n | p , n , ' ' ].
-   		^allButLast , words last. 
-	]
-	ifFalse: [ 
-		^type toPharo
-	] 
-]
-
-{ #category : #accessing }
-AnubisPath >> type [
-	^type.
-]
-
-{ #category : #accessing }
-AnubisPath >> type: t [
-	type := t.
+	^self data inject: '' into: [:a :n | a , ' ' , n toPharo ] 
+	
 ]
