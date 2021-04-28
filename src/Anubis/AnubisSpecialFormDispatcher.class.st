@@ -26,20 +26,20 @@ AnubisSpecialFormDispatcher class >> funcall: anubisListRef [
 { #category : #accessing }
 AnubisSpecialFormDispatcher class >> if: anubisListRef [
 	| ifDroppedWhitespaceCleared closingBrackets ifRet|
-	ifRet := '___ifRet___'.
+	ifRet := '___ifRet___ exit: '.
 	ifDroppedWhitespaceCleared := anubisListRef data allButFirst reject: [:e | e class = AnubisWhitespace]. 
 	ifDroppedWhitespaceCleared  
 		size % 2 = 0 
 			ifFalse: [ Error signal: 'even number of forms required for if statement: ' , anubisListRef token ].
 	^(((1 to: ifDroppedWhitespaceCleared size by: 2) 
-		inject: ('[|{1}|{2}' format: {ifRet. Character cr})  
+		inject: ('[|___ifRet___| ___ifRet___ := [{2}' format: {ifRet. Character cr})  
 		into: [ :a :i | 
-			a , ('{1} ifTrue: [{2} := {3}].{4}' 
+			a , ('{1} ifNotNil: [:___o___ | ___o___ ifTrue: [{2} {3}]].{4}' 
 				format: {(ifDroppedWhitespaceCleared at: i) toPharo. 
 				         ifRet.
 				         (ifDroppedWhitespaceCleared at: i + 1) toPharo.
 				         Character cr}).
-		]) , ifRet , '] value')
+		]) , '] withExit. ___ifRet___ value] value')
 	
 ]
 
