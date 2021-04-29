@@ -6,7 +6,7 @@ Class {
 
 { #category : #compiling }
 AnubisCompiler class >> compile: aString [
-	^(AnubisReader parse: aString onError: [ :msg :pos | self error: msg ]) first toPharo . 
+	^Object compiler evaluate: (self toPharo: aString)  
 ]
 
 { #category : #compiling }
@@ -24,4 +24,9 @@ AnubisCompiler class >> depthFirstPass: node [
 		]
 	].
 	
+]
+
+{ #category : #compiling }
+AnubisCompiler class >> toPharo: aString [
+	^(AnubisReader parse: aString onError: [ :msg :pos | self error: msg ]) first toPharo . 
 ]
