@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "AnubisDataTypes",
+	"category" : "Anubis",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "AnubisSymbol",
+	"type" : "normal"
+}

@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "AnubisSymbol",
+	"category" : "Anubis",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "AnubisSetSymbol",
+	"type" : "normal"
+}
