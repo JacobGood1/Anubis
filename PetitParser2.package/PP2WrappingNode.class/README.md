@@ -1,0 +1,1 @@
+Performs an action block upon activation with the stream and a continuation block.

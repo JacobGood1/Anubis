@@ -1,0 +1,3 @@
+removing
+top
+	^ elements last

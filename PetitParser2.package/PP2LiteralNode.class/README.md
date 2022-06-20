@@ -1,0 +1,1 @@
+Abstract literal parser that parses some kind of literal type (to be specified by subclasses).

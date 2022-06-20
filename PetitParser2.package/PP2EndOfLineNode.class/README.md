@@ -1,0 +1,1 @@
+Matches end of a line.

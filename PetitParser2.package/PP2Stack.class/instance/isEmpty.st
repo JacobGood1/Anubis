@@ -1,0 +1,3 @@
+removing
+isEmpty
+	^ elements isEmpty 

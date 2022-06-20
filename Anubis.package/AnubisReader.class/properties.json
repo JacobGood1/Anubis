@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Anubis",
+	"classinstvars" : [
+		"windowsCMDProcess"
+	],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"token",
+		"data"
+	],
+	"name" : "AnubisReader",
+	"type" : "normal"
+}

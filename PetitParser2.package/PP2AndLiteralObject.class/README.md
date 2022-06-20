@@ -1,0 +1,1 @@
+Optimization for 'PP2And -> PP2LiteralObject' combinator.

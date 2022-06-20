@@ -1,0 +1,1 @@
+Abstract base class for list nodes, nodes with multiple children.

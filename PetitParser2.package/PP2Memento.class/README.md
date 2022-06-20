@@ -1,0 +1,1 @@
+Memento pattern used by bounded seas.

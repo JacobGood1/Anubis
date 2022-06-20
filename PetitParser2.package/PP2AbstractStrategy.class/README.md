@@ -1,0 +1,1 @@
+Base class for all PP2 strategies. See PP2Strategy for more details.

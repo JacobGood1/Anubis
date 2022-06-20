@@ -1,0 +1,1 @@
+Matches if next 'size' characters in input satisfy the given predicate.

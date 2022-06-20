@@ -1,0 +1,1 @@
+Represents 'water' element in bounded seas: imprecise and tolerant parsers. See http://kursjan.github.io/petitparser2/ for more information.

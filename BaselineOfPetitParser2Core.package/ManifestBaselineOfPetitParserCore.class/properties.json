@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "PackageManifest",
+	"category" : "BaselineOfPetitParser2Core-Manifest",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ManifestBaselineOfPetitParserCore",
+	"type" : "normal"
+}

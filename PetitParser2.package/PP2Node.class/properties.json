@@ -1,0 +1,19 @@
+{
+	"classtraitcomposition" : "TPP2Properties classTrait",
+	"classvars" : [ ],
+	"instvars" : [
+		"properties",
+		"strategy",
+		"memoizationStrategy"
+	],
+	"name" : "PP2Node",
+	"commentStamp" : "",
+	"super" : "Object",
+	"traitcomposition" : "TPP2Properties",
+	"type" : "normal",
+	"classinstvars" : [
+		"spaceTrimmer"
+	],
+	"pools" : [ ],
+	"category" : "PetitParser2-Nodes"
+}

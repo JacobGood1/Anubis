@@ -1,0 +1,1 @@
+Silently consumes spaces before and after the delegate parser.

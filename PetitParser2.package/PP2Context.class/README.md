@@ -1,0 +1,1 @@
+PP2 Wrapper around stream. Contains additional state to used by PP2.

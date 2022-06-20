@@ -1,0 +1,1 @@
+Baseline with minimal viable dependencies.

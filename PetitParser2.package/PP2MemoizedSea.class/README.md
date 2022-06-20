@@ -1,0 +1,1 @@
+Memoization cache for bounded seas.

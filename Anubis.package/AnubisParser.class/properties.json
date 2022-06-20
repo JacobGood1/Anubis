@@ -1,0 +1,20 @@
+{
+	"commentStamp" : "",
+	"super" : "PP2CompositeNode",
+	"category" : "Anubis",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"form",
+		"list",
+		"integer",
+		"openParen",
+		"closeParen",
+		"whitespace",
+		"atom",
+		"composite"
+	],
+	"name" : "AnubisParser",
+	"type" : "normal"
+}

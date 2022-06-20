@@ -1,0 +1,1 @@
+Remembers the state of the context.

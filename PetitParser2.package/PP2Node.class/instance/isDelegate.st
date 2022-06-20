@@ -1,0 +1,3 @@
+testing
+isDelegate
+	^ false

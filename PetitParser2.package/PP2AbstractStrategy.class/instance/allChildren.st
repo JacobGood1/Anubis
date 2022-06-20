@@ -1,0 +1,3 @@
+accessing
+allChildren
+	self shouldBeImplemented 

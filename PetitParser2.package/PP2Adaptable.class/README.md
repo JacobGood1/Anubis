@@ -1,0 +1,1 @@
+Default strategy for PP2AdaptableNode.
